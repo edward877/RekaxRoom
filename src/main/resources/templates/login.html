@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Авторизация</title>
+        <link rel="stylesheet" th:href="@{/css/login.css}" href="../../css/login.css" />
+        <!--Import materialize.css-->
+        <link rel="stylesheet" th:href="@{/css/materialize.css}" href="../../css/materialize.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    </head>
+    <body>
+        <main class="valign-wrapper">
+
+            <div class="container center">
+            <h5 class="grey-text">Please, login into your account</h5>
+
+                <br />
+                    <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+                        <form class="col s12" method="post" th:action="@{/login}">
+
+                            <div class='row'>
+                                <div class='input-field col s12'>
+                                    <input class='validate' type='text' name='username' id='username' />
+                                    <label>Enter your username</label>
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class='input-field col s12'>
+                                    <input class='validate' type='password' name='password' id='password' />
+                                    <label for='password'>Enter your password</label>
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class='row center'>
+                                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect grey'>Login</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div th:if="${#httpServletRequest.getParameter('error')}">
+                        Неправильный логин или пароль
+                    </div>
+                </div>
+        </main>
+
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/materialize.js}" src="../../js/materialize.js"></script>
+    </body>
+</html>
