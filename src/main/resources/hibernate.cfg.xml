@@ -4,11 +4,14 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/test_database</property>
-    <property name="connection.username">postgres</property>
-     <property name="connection.password">postgres</property>
-    <mapping class="RelaxRoom.model.User"/>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/relax_room_db</property>
+    <!--<mapping class="RelaxRoom.model.UserEntity1"/>-->
+    <mapping class="RelaxRoom.model.StatusEntity"/>
+    <mapping class="RelaxRoom.model.StatementsQueueEntity"/>
+    <mapping class="RelaxRoom.model.UsersEntity"/>
+    <mapping class="RelaxRoom.model.RelaxRoomsEntity"/>
+    <mapping class="RelaxRoom.model.MicrowavesEntity"/>
+    <mapping class="RelaxRoom.model.QueueEntity"/>
   </session-factory>
 </hibernate-configuration>

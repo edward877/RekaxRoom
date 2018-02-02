@@ -1,25 +1,23 @@
 package RelaxRoom.service;
 
-import RelaxRoom.dao.UserDao;
-import RelaxRoom.dao.UserDaoImpl;
-import RelaxRoom.model.User;
+import RelaxRoom.model.UsersEntity;
+import RelaxRoom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.security.authentication.InternalAuthenticationServiceException;
-        import org.springframework.security.core.GrantedAuthority;
-        import org.springframework.security.core.userdetails.UserDetails;
-        import org.springframework.security.core.userdetails.UserDetailsService;
-        import org.springframework.security.core.userdetails.UsernameNotFoundException;
-        import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.*;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-        import java.util.Collection;
-        import java.util.List;
+import java.util.Collection;
+import java.util.List;
 
-@Service("userDetailsService")
+@Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    UserDao users;
+
+    private UserRepository userDao;
 
     @Transactional(readOnly=true)
     @Override
@@ -27,10 +25,10 @@ public class MyUserDetailsService implements UserDetailsService {
         UserDetails loadedUser;
 
         try {
-            User client = users.findByLogin(username);
+            UsersEntity client = userDao.findByUsername(username);
             if(client!=null){
-                loadedUser = new org.springframework.security.core.userdetails.User(
-                        client.getLogin(), client.getPassword(), DummyAuthority.getAuth());
+                loadedUser = new User(
+                        client.getUsername(), client.getPassword(), DummyAuthority.getAuth());
                 return loadedUser;
             }
         } catch (Exception repositoryProblem) {
@@ -39,6 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return null;
     }
 
+    ///исправить
     static class DummyAuthority implements GrantedAuthority
     {
         static Collection<GrantedAuthority> getAuth()

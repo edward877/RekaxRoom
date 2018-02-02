@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Главная</title>
+    <title>Relax Room</title>
+
+    <link rel="stylesheet" th:href="@{/css/room.css}" href="../../css/room.css" />
     <!--Import materialize.css-->
     <link rel="stylesheet" th:href="@{/css/materialize.css}" href="../../css/materialize.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -13,8 +15,51 @@
 
     <header th:include="fragments/header :: header"></header>
 
-    <main class="center">
-        <h2>Relax room </h2>
+    <!--class="valign-wrapper"-->
+    <div class="section"/>
+    <main >
+        <div class="container">
+
+            <div class='row'>
+                <ul class="collection offset-m2 offset-xl3 col s12 m8 xl6">
+                    <li class="collection-header center">
+                        <h3 th:text="'Relax room ' + ${room_number}"/>
+
+                    </li>
+                    <li class="collection-item">
+                        Alvin
+                        <span class="red-text"> - Микроволновка1</span>
+                        <span class="right">3мин.</span>
+                    </li>
+                    <li class="collection-item">
+                        Alvin
+                        <span class="red-text"> - Микроволновка2</span>
+                        <span class="right">1мин.</span>
+                    </li>
+                    <li class="collection-item">
+                        Alvin - 1
+                        <span class="right">5мин.</span>
+                    </li>
+                    <li class="collection-item">
+                        Alvin - 2
+                        <span class="right">3мин.</span>
+                    </li>
+                    <li class="collection-item" th:text="${current_user}" >
+                        <span class="right">---мин.</span>
+                    </li>
+                    <!--<form method="post" class="left form_queue">-->
+                        <!--<button type='submit' name='btn_out_queue'  class='btn waves-effect grey'>Выйти из очереди</button>-->
+                    <!--</form>-->
+
+                    <form method="post" class="right form_queue">
+                        <button type='submit' name='btn_queue'  class='btn waves-effect grey'>Встать в очередь</button>
+                    </form>
+                    <li class="collection-item"> </li>
+                </ul>
+
+            </div>
+
+        </div>
     </main>
 
 <!--Import jQuery before materialize.js-->

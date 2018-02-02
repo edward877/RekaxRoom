@@ -1,9 +1,8 @@
 package RelaxRoom.controller;
 
-
-import RelaxRoom.dao.UserDao;
-import RelaxRoom.model.User;
-import RelaxRoom.dao.UserDaoImpl;
+import RelaxRoom.model.StatusEntity;
+import RelaxRoom.repository.StatusRepository;
+import RelaxRoom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,60 +13,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value={"", "/", "index"})
+@RequestMapping(value={"", "/"})
 public class MainController {
 
     @Autowired
-    private UserDao _userDao;
+    private UserRepository userRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
 
     @RequestMapping(value={"", "/"})
     public ModelAndView index() {
-        Map<String,Integer> model = new HashMap<>();
-        model.put("count1", _userDao.getAll().size());
+        Map<String,Object> model = new HashMap<>();
+        model.put("count1", userRepository.count());//getAll().size());
         ModelAndView modelAndView = new ModelAndView("index", model);
         return modelAndView;
     }
 
-
-	@RequestMapping("/save")
+    @RequestMapping("/testStatus")
     @ResponseBody
-	public String save(){
-        User user = new User("edward", "1");
-        try {
-            _userDao.save(user);
-        }
-        catch(Exception ex) {
-            return ex.getMessage();
-        }
-        return user.toString() + " saved";
-	}
+    public String save(){
 
-    @RequestMapping("/relax_room_2")
-    @ResponseBody
-    public String relaxRoom1(){
-        User user = new User("edward", "1");
-        try {
-            _userDao.save(user);
+        String str ="";
+        for ( StatusEntity status: statusRepository.findAll()) {
+            str+= status;
         }
-        catch(Exception ex) {
-            return ex.getMessage();
-        }
-        return user.toString() + " saved";
+        return  str;
     }
-
-    @RequestMapping("/relax_room_1")
-    @ResponseBody
-    public String relaxRoom2(){
-        User user = new User("edward", "1");
-        try {
-            _userDao.save(user);
-        }
-        catch(Exception ex) {
-            return ex.getMessage();
-        }
-        return user.toString() + " saved";
-    }
-
 
 }
 
