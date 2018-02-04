@@ -2,10 +2,11 @@ main {
     flex: 1 0 auto;
 }
 .room {
-    margin-top: 80px;
+    margin-top: 7%;
     display: inline-block;
     border: solid grey 2px;
-    width: 25%;
+    margin-right: 10px;
+    /*width: 25%;*/
     /*margin-right: 10%;*/
 }
 

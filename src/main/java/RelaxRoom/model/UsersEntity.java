@@ -10,6 +10,8 @@ import java.util.Set;
 @Table(name = "users")
 public class UsersEntity implements Serializable {
 
+    private static final long serialVersionUID = 3497516698847425035L;
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "username", nullable = false, length = 40)
@@ -24,7 +26,7 @@ public class UsersEntity implements Serializable {
     @Column(name = "is_free", nullable = false)
     private boolean isFree;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="username")
     private Set<QueueEntity> queue;
 
@@ -46,6 +48,30 @@ public class UsersEntity implements Serializable {
         return password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFio() {
+        return fio;
+    }
+
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
     @Override
     public String toString() {
         return "UsersEntity{" +
@@ -53,7 +79,6 @@ public class UsersEntity implements Serializable {
                 ", fio='" + fio + '\'' +
                 ", password='" + password + '\'' +
                 ", isFree=" + isFree +
-//                ", queuesByUsername=" + queuesByUsername +
                 '}';
     }
 }

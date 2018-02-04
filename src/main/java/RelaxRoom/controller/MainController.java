@@ -1,8 +1,8 @@
 package RelaxRoom.controller;
 
-import RelaxRoom.model.StatusEntity;
-import RelaxRoom.repository.StatusRepository;
-import RelaxRoom.repository.UserRepository;
+import RelaxRoom.model.*;
+import RelaxRoom.repository.*;
+import RelaxRoom.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,29 +16,24 @@ import java.util.Map;
 @RequestMapping(value={"", "/"})
 public class MainController {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
-    private StatusRepository statusRepository;
+    private QueueRepository queueRepository;
+
+    @Autowired
+    private QueueService queueService;
+
 
     @RequestMapping(value={"", "/"})
     public ModelAndView index() {
         Map<String,Object> model = new HashMap<>();
-        model.put("count1", userRepository.count());//getAll().size());
+        model.put("count1",  queueRepository.findByRelaxRoomIdAndStatementsQueueStatusNameStatusIn
+                (1, queueService.getWaitingStatusName()).size());
+        model.put("count2",  queueRepository.findByRelaxRoomIdAndStatementsQueueStatusNameStatusIn
+                (2, queueService.getWaitingStatusName()).size());
+
         ModelAndView modelAndView = new ModelAndView("index", model);
         return modelAndView;
-    }
-
-    @RequestMapping("/testStatus")
-    @ResponseBody
-    public String save(){
-
-        String str ="";
-        for ( StatusEntity status: statusRepository.findAll()) {
-            str+= status;
-        }
-        return  str;
     }
 
 }

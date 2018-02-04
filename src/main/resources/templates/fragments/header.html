@@ -9,7 +9,7 @@
                     <a class="brand-logo center" th:href="@{/}">
                         <img id="cupcake" class="responsive-img" width="62" th:src="@{/images/cupcake.png}"/>
                     </a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <ul id="nav-mobile" class="right">
                         <!--<li><a href="#">Личный кабинет</a></li>-->
                         <li>
                             <form th:action="@{/logout}" method="post">
@@ -20,14 +20,5 @@
                 </div>
             </nav>
         </header>
-
-        <!--<h1>Spring Boot Web Thymeleaf Example</h1>-->
-        <!--<h2>Users:</h2>-->
-        <!--<div th:each ="user : ${users}" class="users">-->
-        <!--<span th:utext="${user.getName()}"></span>-->
-        <!--<span th:utext="${user.getPassword()}"></span>-->
-        <!--<br/>-->
-        <!--</div>-->
-        <!--<p><a th:href="@{/hello}">Чудо</a></p>-->
     </body>
 </html>

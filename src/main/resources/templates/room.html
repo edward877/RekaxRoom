@@ -4,65 +4,70 @@
     <title>Relax Room</title>
 
     <link rel="stylesheet" th:href="@{/css/room.css}" href="../../css/room.css" />
-    <!--Import materialize.css-->
     <link rel="stylesheet" th:href="@{/css/materialize.css}" href="../../css/materialize.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
 
     <header th:include="fragments/header :: header"></header>
 
-    <!--class="valign-wrapper"-->
     <div class="section"/>
     <main >
         <div class="container">
-
             <div class='row'>
-                <ul class="collection offset-m2 offset-xl3 col s12 m8 xl6">
+                <ul class="collection offset-m2 offset-xl3 col s12 m8 xl6 ">
                     <li class="collection-header center">
                         <h3 th:text="'Relax room ' + ${room_number}"/>
+                    </li>
 
-                    </li>
-                    <li class="collection-item">
-                        Alvin
-                        <span class="red-text"> - Микроволновка1</span>
-                        <span class="right">3мин.</span>
-                    </li>
-                    <li class="collection-item">
-                        Alvin
-                        <span class="red-text"> - Микроволновка2</span>
-                        <span class="right">1мин.</span>
-                    </li>
-                    <li class="collection-item">
-                        Alvin - 1
-                        <span class="right">5мин.</span>
-                    </li>
-                    <li class="collection-item">
-                        Alvin - 2
-                        <span class="right">3мин.</span>
-                    </li>
-                    <li class="collection-item" th:text="${current_user}" >
-                        <span class="right">---мин.</span>
-                    </li>
-                    <!--<form method="post" class="left form_queue">-->
-                        <!--<button type='submit' name='btn_out_queue'  class='btn waves-effect grey'>Выйти из очереди</button>-->
-                    <!--</form>-->
+                    <form method="post" class="form_queue" action="#" th:action="@{/relax_room/{id}(id=${room_number})}">
+                        <button type='submit' name="action" value="exit"  class='btn waves-effect grey'
+                                th:unless="${current_user.isFree()}">Выйти из очереди</button>
 
-                    <form method="post" class="right form_queue">
-                        <button type='submit' name='btn_queue'  class='btn waves-effect grey'>Встать в очередь</button>
+                        <button type='submit' name="action" value="add"  class='btn waves-effect grey'
+                                th:if="${current_user.isFree()}">Встать в очередь</button>
+
+                        <button type='submit' name="action" value="clear"  class='btn waves-effect grey'>очистить</button>
+
+                        <div class="input-field col s3 right" th:if="${current_user.isFree()}">
+                            <select th:name="minutes">
+                                <option value="1">1мин</option>
+                                <option value="3">3мин</option>
+                                <option value="5">5мин</option>
+                            </select>
+                        </div>
+                        <br/><br/>
                     </form>
-                    <li class="collection-item"> </li>
-                </ul>
 
+                    <div th:each="queueCol : ${queue}">
+                        <li class="collection-item" th:object="${queueCol}">
+
+                            <span th:if="${queueCol.getUser() == current_user}">
+                                <span  class="red-text" th:text="*{getUser().getFio()}"/>
+                            </span>
+                            <span th:unless="${queueCol.getUser() == current_user}">
+                                <span th:text="*{getUser().getFio()}"/>
+                            </span>
+                            <span th:if="*{getMicrowave()!=null}">
+                            -  <span th:text="*{getMicrowave().getId()}"/>  Микроволновка
+                            </span>
+                            <span class="right">  мин.</span>
+                            <span class="right" th:text="*{getStatementsQueue().getMinutesToEnd()}"/>
+
+                        </li>
+                        <li class="collection-item"/>
+                    </div>
+
+                    <li class="collection-item"><br/></li>
+                    <li class="collection-item"><br/></li>
+                </ul>
             </div>
 
         </div>
     </main>
 
-<!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/materialize.js}" src="../../js/materialize.js"></script>
 </body>
