@@ -2,9 +2,7 @@ package RelaxRoom.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "status", schema = "public", catalog = "relax_room_db")
@@ -13,16 +11,14 @@ public class StatusEntity   implements Serializable {
     private static final long serialVersionUID = 941123547855698959L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
     @Column(name = "name_status", nullable = false, length = 40)
     private String nameStatus;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="id_status")
-    private Set<StatementsQueueEntity> statementsQueue;
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<StatementsQueueEntity> statementsQueue = new ArrayList<>();
 
     public int getId() {
         return id;

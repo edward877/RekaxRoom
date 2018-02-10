@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/room.css}" href="../../css/room.css" />
     <link rel="stylesheet" th:href="@{/css/materialize.css}" href="../../css/materialize.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
@@ -29,7 +28,6 @@
                         <button type='submit' name="action" value="add"  class='btn waves-effect grey'
                                 th:if="${current_user.isFree()}">Встать в очередь</button>
 
-                        <button type='submit' name="action" value="clear"  class='btn waves-effect grey'>очистить</button>
 
                         <div class="input-field col s3 right" th:if="${current_user.isFree()}">
                             <select th:name="minutes">
@@ -50,11 +48,12 @@
                             <span th:unless="${queueCol.getUser() == current_user}">
                                 <span th:text="*{getUser().getFio()}"/>
                             </span>
-                            <span th:if="*{getMicrowave()!=null}">
-                            -  <span th:text="*{getMicrowave().getId()}"/>  Микроволновка
+                            <span class="right" th:if="*{getMicrowave()!=null}">
+                                <span th:text="*{getMicrowave().getId()}"/>
+                                Микроволновка
                             </span>
-                            <span class="right">  мин.</span>
-                            <span class="right" th:text="*{getStatementsQueue().getMinutesToEnd()}"/>
+                            <!--<span class="right">  мин.</span>-->
+                            <!--<span class="right" th:text="*{getStatementsQueue().getMinutesToEnd()}"/>-->
 
                         </li>
                         <li class="collection-item"/>

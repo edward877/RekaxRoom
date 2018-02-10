@@ -42,8 +42,6 @@ public class RelaxRoomController {
         }
         else if( action.equals("exit") ){
             queueService.exitFromQueueBtn();
-        }else if (action.equals("clear")){
-            queueService.endQueueInTime();
         }
 
         return relaxRoom(room_number);

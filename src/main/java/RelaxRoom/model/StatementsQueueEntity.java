@@ -1,5 +1,8 @@
 package RelaxRoom.model;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,11 +14,11 @@ public class StatementsQueueEntity implements Serializable{
     private static final long serialVersionUID = 2245986059132065916L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "date_in", nullable = false)
+    @Column(name = "date_in")
     private Timestamp dateIn;
 
     @Column(name = "date_out")
@@ -24,12 +27,9 @@ public class StatementsQueueEntity implements Serializable{
     @Column(name = "minutes_to_end", nullable = false)
     private int minutesToEnd;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_status")
+    @ManyToOne
+    @JoinColumn(name = "id_status")
     private StatusEntity status;
-
-    @OneToOne(mappedBy= "statementsQueue", fetch = FetchType.EAGER)
-    private QueueEntity queue;
 
     public StatementsQueueEntity() {
     }

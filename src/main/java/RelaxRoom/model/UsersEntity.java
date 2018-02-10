@@ -2,9 +2,7 @@ package RelaxRoom.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -13,7 +11,6 @@ public class UsersEntity implements Serializable {
     private static final long serialVersionUID = 3497516698847425035L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "username", nullable = false, length = 40)
     private String username;
 
@@ -26,9 +23,8 @@ public class UsersEntity implements Serializable {
     @Column(name = "is_free", nullable = false)
     private boolean isFree;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="username")
-    private Set<QueueEntity> queue;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<QueueEntity> queue = new ArrayList();
 
     public UsersEntity() {
     }

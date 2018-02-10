@@ -2,9 +2,7 @@ package RelaxRoom.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "microwaves")
@@ -13,16 +11,14 @@ public class MicrowavesEntity   implements Serializable {
     private static final long serialVersionUID = -8750899970394647595L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
     @Column(name = "is_free", nullable = false)
     private boolean isFree;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="id_microwave")
-    private Set<QueueEntity> queue;
+    @OneToMany(mappedBy = "microwave", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<QueueEntity> queue = new ArrayList<>();
 
     public int getId() {
         return id;

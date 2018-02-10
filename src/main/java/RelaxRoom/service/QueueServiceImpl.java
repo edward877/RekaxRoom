@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 public class QueueServiceImpl implements QueueService {
 
 
-
     @Autowired
     private QueueRepository queueRepository;
 
@@ -81,6 +80,7 @@ public class QueueServiceImpl implements QueueService {
     }
 
     @Override
+    @Transactional
     public synchronized void endQueueInTime(){
         List<QueueEntity> queueEntities = queueRepository.findAllByStatementsQueueStatusNameStatusAndStatementsQueueDateOutBefore
                 ("в процессе", getNowTimestamp());

@@ -10,23 +10,22 @@ public class QueueEntity  implements Serializable {
     private static final long serialVersionUID = -3147973496160054219L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="username")
+    @ManyToOne
+    @JoinColumn(name = "username", updatable = false)
     private UsersEntity user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_relax_room")
+    @ManyToOne
+    @JoinColumn(name = "id_relax_room", updatable = false)
     private RelaxRoomsEntity relaxRoom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_microwave")
+    @ManyToOne
+    @JoinColumn(name = "id_microwave")
     private MicrowavesEntity microwave;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     @JoinColumn(name="id_statement")
     private StatementsQueueEntity statementsQueue;
 
